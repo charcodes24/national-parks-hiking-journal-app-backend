@@ -18,6 +18,17 @@ class Application
         return [422, { 'Content-Type' => 'application/json' }, [ {:error => "failed to create"}.to_json ]]
       end
 
+    elsif req.path.match(/national_parks/) && req.delete?
+
+      id = req.path.split("/national_parks/").last
+      park = NationalPark.find_by_id(id)
+
+      if park.destroy
+        return [200, { 'Content-Type' => 'application/json' }, [ {:message => "task successfully deleted"}.to_json ]]
+      else
+        return [422, { 'Content-Type' => 'application/json' }, [ {:error => "unable to delete task"}.to_json ]]
+      end
+      
     else
       resp.write "Path Not Found"
 

@@ -10,4 +10,9 @@ class NationalPark < ActiveRecord::Base
             }
         end
     end
+
+    def self.find_park_by_path(path)
+        id = req.path.split("/national_parks/").last
+        NationalPark.find_by_id(id)
+    end
 end
