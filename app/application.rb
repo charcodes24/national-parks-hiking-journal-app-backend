@@ -15,8 +15,7 @@ class Application
         {
           id: t.id, 
           name: t.name, 
-          distance: t.distance, 
-          difficulty: t.difficulty, 
+          distance: t.distance,
           note: t.note
         }
       end
@@ -45,6 +44,7 @@ class Application
       national_park_name = data["park"]["name"]
       national_park = NationalPark.find_by_name(national_park_name)
       national_park.hikes << new_hike
+      binding.pry
 
       if new_hike
         return [200, { 'Content-Type' => 'application/json' }, [ {:hike => new_hike, :message => "hike successfully added"}.to_json ]]

@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_30_164044) do
+ActiveRecord::Schema.define(version: 2021_07_31_215552) do
 
   create_table "hikes", force: :cascade do |t|
     t.string "name"
     t.integer "distance"
-    t.string "difficulty"
     t.string "note"
     t.integer "national_park_id"
     t.index ["national_park_id"], name: "index_hikes_on_national_park_id"
