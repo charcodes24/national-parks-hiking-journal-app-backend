@@ -2,7 +2,7 @@ class NationalPark < ActiveRecord::Base
     has_many :hikes
 
     def self.render_all 
-        self.all.map do |t|
+        NationalPark.all.map do |t|
             {
                 id: t.id, 
                 name: t.name, 
@@ -11,8 +11,18 @@ class NationalPark < ActiveRecord::Base
         end
     end
 
-    def self.find_park_by_path(path)
-        id = req.path.split("/national_parks/").last
-        NationalPark.find_by_id(id)
+    def self.create_new_park(data)
+        NationalPark.new(data)
+    end
+
+    def display_hikes
+        self.hikes do |t|
+            {
+                id: t.id, 
+                name: t.name, 
+                distance: t.distance,
+                note: t.note 
+            }
+        end
     end
 end
