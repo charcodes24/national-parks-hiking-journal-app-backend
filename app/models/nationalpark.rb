@@ -11,10 +11,6 @@ class NationalPark < ActiveRecord::Base
         end
     end
 
-    def self.create_new_park(data)
-        NationalPark.new(data)
-    end
-
     def display_hikes
         self.hikes do |t|
             {

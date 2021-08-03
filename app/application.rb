@@ -22,7 +22,7 @@ class Application
     elsif req.path.match('/national_parks/') && req.post?
 
       new_park = NationalPark.new(JSON.parse(req.body.read))
-
+      
       if new_park.save
         return [200, { 'Content-Type' => 'application/json' }, [ {:park => new_park, :message => "park successfully added"}.to_json ]]
       else 
