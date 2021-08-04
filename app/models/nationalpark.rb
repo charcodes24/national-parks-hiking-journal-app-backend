@@ -11,6 +11,11 @@ class NationalPark < ActiveRecord::Base
         end
     end
 
+    def self.find_by_path(path)
+        id = path.split("/national_parks/").last
+        find_by_id(id)
+    end
+
     def display_hikes
         self.hikes do |t|
             {

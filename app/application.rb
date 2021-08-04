@@ -34,7 +34,6 @@ class Application
       data = JSON.parse(req.body.read)
       new_hike = Hike.new(data["hike"])
       national_park = NationalPark.find_by_name(data["park"]["name"])
-      national_park.hikes << new_hike
 
       if national_park.hikes << new_hike
         return [200, { 'Content-Type' => 'application/json' }, [ {:hike => new_hike, :message => "hike successfully added"}.to_json ]]
@@ -44,10 +43,7 @@ class Application
 
     elsif req.path.match(/national_parks/) && req.delete?
 
-      id = req.path.split("/national_parks/").last
-      park = NationalPark.find_by_id(id)
-
-      if park.destroy
+      if NationalPark.find_by_path(req.path).destroy
         return [200, { 'Content-Type' => 'application/json' }, [ {:message => "park successfully deleted"}.to_json ]]
       else
         return [422, { 'Content-Type' => 'application/json' }, [ {:error => "unable to delete park"}.to_json ]]
@@ -55,10 +51,7 @@ class Application
 
     elsif req.path.match('/hikes/') && req.delete?
 
-      id = req.path.split('/hikes/').last
-      hike = Hike.find_by_id(id)
-
-      if hike.destroy
+      if Hike.find_by_path(req.path).destroy
         return [200, { 'Content-Type' => 'application/json' }, [ {:message => "park successfully deleted"}.to_json ]]
       else
         return [422, { 'Content-Type' => 'application/json' }, [ {:error => "unable to delete hike"}.to_json ]]
