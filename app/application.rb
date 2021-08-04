@@ -30,7 +30,7 @@ class Application
       end
 
       #POST response to add hikes (on AddHikeForm component)
-    elsif req.path.match('/add_hikes/') && req.post?
+    elsif req.path.match('/hikes/') && req.post?
       data = JSON.parse(req.body.read)
       new_hike = Hike.new(data["hike"])
       national_park = NationalPark.find_by_name(data["park"]["name"])
