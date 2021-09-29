@@ -12,7 +12,6 @@ class Application
 
       return [200, { 'Content-Type' => 'application/json' }, [ {hikes: park.display_hikes, message: "request successful"}.to_json ]]
 
-
     #GET response to load all national parks (on Container component)
     elsif req.path.match('/national_parks/') && req.get?
 
@@ -41,6 +40,7 @@ class Application
         return [422, { 'Content-Type' => 'application/json' }, [ {:error => "failed to create"}.to_json ]]
       end
 
+      #DELETE response to delete park (on Card component)
     elsif req.path.match(/national_parks/) && req.delete?
 
       if NationalPark.find_by_path(req.path).destroy
@@ -49,6 +49,7 @@ class Application
         return [422, { 'Content-Type' => 'application/json' }, [ {:error => "unable to delete park"}.to_json ]]
       end
 
+      #DELETE response to delete hike (on HikeCard component)
     elsif req.path.match('/hikes/') && req.delete?
 
       if Hike.find_by_path(req.path).destroy
